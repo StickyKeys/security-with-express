@@ -7,8 +7,19 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let testsRouter = require('./routes/tests');
+let birdsRouter = require('./routes/birds');
 
 var app = express();
+
+const myLogger = function(req, res, next) {
+     console.log("LOGGED");
+     next();
+}
+
+const requestTime = function(req, res, next) {
+     req.requestTime = Date.now();
+     next();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,9 +31,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(myLogger);
+app.use(requestTime);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testsRouter);
+app.use('/birds', birdsRouter);
 
 app.route('/chain')
    .get((req, res) => {
