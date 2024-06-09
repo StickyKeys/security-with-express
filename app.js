@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let testsRouter = require('./routes/tests');
 let birdsRouter = require('./routes/birds');
+let foodRouter = require('./routes/food');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testsRouter);
 app.use('/birds', birdsRouter);
+app.use('/food', foodRouter);
 
 app.route('/chain')
    .get((req, res) => {
